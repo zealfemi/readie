@@ -18,7 +18,7 @@ export default function SortBy({
     <select
       value={sortBy}
       onChange={handleOnchange}
-      className="border border-gray-300 p-2 rounded-md">
+      className="appearance-none bg-white border border-gray-300 p-2 rounded-md text-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500">
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}

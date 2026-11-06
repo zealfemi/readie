@@ -44,7 +44,7 @@ export default function Campaign() {
                 value={emailSearch}
                 onChange={(e) => setEmailSearch(e.target.value)}
                 placeholder="Search email"
-                className="border border-gray-400 py-1.5 px-2 w-full rounded-md"
+                className="bg-white border border-gray-300 py-1.5 px-2 w-full lg:min-w-80 rounded-md"
               />
             </div>
             <TableOperations />

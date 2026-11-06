@@ -14,7 +14,7 @@ export default function Candidates({ campaign }: { campaign: campaignType[] }) {
   }
 
   return (
-    <div className="w-full border border-gray-200 rounded-md overflow-x-auto">
+    <div className="w-full border border-gray-300 rounded-md overflow-x-auto">
       <table className="w-full min-w-225 table-fixed">
         <thead className="font-semibold text-left">
           <tr>

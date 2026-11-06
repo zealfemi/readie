@@ -18,7 +18,7 @@ export default function Filter({
   }
 
   return (
-    <div className="border-gray-300 border flex items-center gap-1 w-full rounded-md p-1">
+    <div className="bg-white border-gray-300 border flex items-center gap-1 w-full rounded-md p-1">
       {options.map((option) => (
         <button
           key={option.value}
