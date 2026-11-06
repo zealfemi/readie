@@ -22,7 +22,7 @@
   --color-foreground: var(--foreground);
 }
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", sans-serif;
 
   transition:
     color 0.3s,
@@ -32,6 +32,7 @@ body {
   /* font-size: 1.6rem; */
   box-sizing: border-box;
   scroll-behavior: smooth;
+  scrollbar-width: none;
 }
 
 .btn {

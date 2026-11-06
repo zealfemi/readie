@@ -1,5 +1,34 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Navigate,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+
+import Campaign from "./features/campaigns/Campaign";
+import Room from "./features/rooms/Room";
+import MainLayout from "./layout/MainLayout";
+import Campaigns from "./pages/Campaigns";
+import NotFound from "./pages/NotFound";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" errorElement={<NotFound />}>
+      <Route element={<MainLayout />}>
+        <Route index element={<Navigate replace to="jobs" />} />
+        <Route path="jobs">
+          <Route index element={<Campaigns />} />
+          <Route path="campaign/:campaignId" element={<Campaign />} />
+          <Route path="room/:roomId" element={<Room />} />
+        </Route>
+      </Route>
+      <Route path="*" element={<NotFound />} />
+    </Route>,
+  ),
+);
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,7 +43,8 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
-        Home
+
+        <RouterProvider router={router}></RouterProvider>
       </QueryClientProvider>
     </>
   );
