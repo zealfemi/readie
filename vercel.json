@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "https://readie001.uc.r.appspot.com/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/"
     }
