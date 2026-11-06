@@ -1,4 +1,5 @@
 import type { campaignType } from "../types/campaign";
+import type { RoomRecording } from "../types/room";
 
 const API_URL = "/api/auth/recording/jobs";
 
@@ -22,7 +23,9 @@ export async function getCampaign(campaignId: string): Promise<campaignType[]> {
   return response.json();
 }
 
-export async function getRoomEvaluation(roomName: string) {
+export async function getRoomEvaluation(
+  roomName: string,
+): Promise<RoomRecording[]> {
   const response = await fetch(`${API_URL}/roomsHACKATHON/${roomName}`, {
     method: "GET",
     headers: getHeaders(),

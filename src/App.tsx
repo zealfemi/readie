@@ -13,6 +13,10 @@ import Room from "./features/rooms/Room";
 import MainLayout from "./layout/MainLayout";
 import Campaigns from "./pages/Campaigns";
 import NotFound from "./pages/NotFound";
+import RoomLayout from "./layout/RoomLayout";
+import Transcript from "./features/rooms/Transcript";
+import IdentityVerification from "./features/rooms/IdentityVerification";
+import IntegrityAudit from "./features/rooms/IntegrityAudit";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,7 +26,15 @@ const router = createBrowserRouter(
         <Route path="jobs">
           <Route index element={<Campaigns />} />
           <Route path="campaign/:campaignId" element={<Campaign />} />
-          <Route path="room/:roomId" element={<Room />} />
+          <Route path="room/:roomId" element={<RoomLayout />}>
+            <Route index element={<Transcript />} />
+            <Route path="transcript" element={<Transcript />} />
+            <Route
+              path="identity-verification"
+              element={<IdentityVerification />}
+            />
+            <Route path="integrity-audit" element={<IntegrityAudit />} />
+          </Route>
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />

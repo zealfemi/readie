@@ -51,6 +51,26 @@ export default function Candidates({ campaign }: { campaign: campaignType[] }) {
                 {checkComplete(
                   candidate?.analyticsCompleted,
                   candidate?.percentageAnalyticCompleted,
+                ) === "completed" && (
+                  <span className="bg-green-600 px-2 py-1.5 text-xs rounded-sm text-primary-200">
+                    Completed
+                  </span>
+                )}
+                {checkComplete(
+                  candidate?.analyticsCompleted,
+                  candidate?.percentageAnalyticCompleted,
+                ) === "failed" && (
+                  <span className="bg-red-600 px-2 py-1.5 text-xs rounded-sm text-primary-200">
+                    Failed
+                  </span>
+                )}
+                {checkComplete(
+                  candidate?.analyticsCompleted,
+                  candidate?.percentageAnalyticCompleted,
+                ) === "in progress" && (
+                  <span className="bg-yellow-600 px-2 py-1.5 text-xs rounded-sm text-primary-200">
+                    In Progress
+                  </span>
                 )}
               </td>
             </tr>
