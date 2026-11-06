@@ -7,6 +7,8 @@ export default function Room() {
 
   const { room, isLoading } = useRoom(roomId ?? "");
 
+  console.log(room);
+
   if (isLoading) return <Spinner />;
 
   return <div>room</div>;
