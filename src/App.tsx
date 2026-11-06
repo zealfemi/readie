@@ -9,14 +9,13 @@ import {
 } from "react-router-dom";
 
 import Campaign from "./features/campaigns/Campaign";
-import Room from "./features/rooms/Room";
-import MainLayout from "./layout/MainLayout";
-import Campaigns from "./pages/Campaigns";
-import NotFound from "./pages/NotFound";
-import RoomLayout from "./layout/RoomLayout";
-import Transcript from "./features/rooms/Transcript";
 import IdentityVerification from "./features/rooms/IdentityVerification";
 import IntegrityAudit from "./features/rooms/IntegrityAudit";
+import Transcript from "./features/rooms/Transcript";
+import MainLayout from "./layout/MainLayout";
+import RoomLayout from "./layout/RoomLayout";
+import Campaigns from "./pages/Campaigns";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

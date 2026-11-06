@@ -60,6 +60,7 @@ export default function RoomLayout() {
           Integrity Audit
         </Link>
       </div>
+
       <Outlet />
     </div>
   );
