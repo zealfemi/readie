@@ -9,7 +9,7 @@ export default function SortBy({
 
   const sortBy = searchParams.get("sortBy") || "";
 
-  function handleOnchange(e) {
+  function handleOnchange(e: React.ChangeEvent<HTMLSelectElement>) {
     searchParams.set("sortBy", e.target.value);
     setSearchParams(searchParams);
   }
