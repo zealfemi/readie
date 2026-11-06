@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import type { campaignType } from "../../types/campaign";
 import Candidates from "../../ui/Candidates";
 import Empty from "../../ui/Empty";
@@ -11,6 +11,7 @@ export default function Campaign() {
   const [emailSearch, setEmailSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const { campaignId } = useParams();
+  const [searchParams] = useSearchParams();
 
   const { campaign, isLoading } = useCampaign(campaignId ?? "");
 
@@ -24,11 +25,52 @@ export default function Campaign() {
 
   if (isLoading) return <Spinner />;
 
-  const filteredCandidates = campaign.filter((candidate: campaignType) =>
-    candidate.candidateEmail
-      .toLowerCase()
-      .includes(debouncedSearch.toLowerCase()),
+  // FILTER
+  const filtered = searchParams.get("status") || "all";
+
+  const filteredCandidates = campaign.filter((candidate) => {
+    const isCompleted = candidate.analyticsCompleted === true;
+
+    const progress = Number(candidate.percentageAnalyticCompleted ?? 0);
+
+    switch (filtered) {
+      case "completed":
+        return isCompleted;
+
+      case "in-progress":
+        return !isCompleted && progress > 0;
+
+      case "failed":
+        return !isCompleted && progress <= 0;
+
+      default:
+        return true;
+    }
+  });
+
+  // SORTING
+  const sortBy = searchParams.get("sortBy") || "candidateDateCreated-desc";
+
+  const [, direction] = sortBy.split("-");
+
+  const modifier = direction === "asc" ? 1 : -1;
+
+  const sortedCandidates = [...filteredCandidates].sort((a, b) => {
+    const dateA = new Date(a.candidateDateCreated).getTime();
+    const dateB = new Date(b.candidateDateCreated).getTime();
+
+    return (dateA - dateB) * modifier;
+  });
+
+  // SEARCH
+  const searchedCandidates = sortedCandidates?.filter(
+    (candidate: campaignType) =>
+      candidate.candidateEmail
+        .toLowerCase()
+        .includes(debouncedSearch.toLowerCase()),
   );
+
+  const filteredResults = searchedCandidates;
 
   return (
     <div>
@@ -52,9 +94,9 @@ export default function Campaign() {
         </div>
       </div>
 
-      {filteredCandidates.length ? (
+      {filteredResults?.length ? (
         <div className="bg-white">
-          <Candidates campaign={filteredCandidates} />
+          <Candidates campaign={filteredResults} />
         </div>
       ) : (
         <Empty resourceName="candidate" />

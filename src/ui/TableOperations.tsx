@@ -16,8 +16,14 @@ export default function TableOperations() {
 
       <SortBy
         options={[
-          { value: "time-asc", label: "Timestamp (newest)" },
-          { value: "time-desc", label: "Timestamp (oldest)" },
+          {
+            value: "candidateDateCreated-desc",
+            label: "Timestamp (newest)",
+          },
+          {
+            value: "candidateDateCreated-asc",
+            label: "Timestamp (oldest)",
+          },
         ]}
       />
     </div>
