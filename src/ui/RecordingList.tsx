@@ -20,12 +20,16 @@ export default function RecordingList({
         </p>
       </div>
 
-      <div className="flex text-left gap-1 lg:flex-col flex-wrap mt-5">
+      <div className="grid grid-cols-2 gap-1 w-full mt-5 lg:flex lg:flex-col lg:gap-1 whitespace-nowrap">
         {recordings?.map((item: RoomRecording, index) => (
           <button
             key={item.createdAt}
             onClick={() => selectRecording(index)}
-            className={`px-2 py-1.5 lg:px-4 lg:py-2.5 cursor-pointer text-left ${activeRecording === index && "bg-primary-400 text-primary-200"} hover:bg-primary-300 hover:text-primary-200 rounded-sm`}>
+            className={`px-2 py-1.5 cursor-pointer text-left rounded-sm transition-colors ${
+              activeRecording === index
+                ? "bg-primary-400 text-primary-200"
+                : "hover:bg-primary-300 hover:text-primary-200"
+            }`}>
             Recording {index + 1}
           </button>
         ))}
