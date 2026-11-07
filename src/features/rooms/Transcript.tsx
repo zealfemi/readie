@@ -17,6 +17,8 @@ export default function Transcript() {
     setActiveRecording(RecordingIndex);
   }
 
+  console.log(room?.at(activeRecording)?.finalUrl);
+
   return (
     <div>
       <div className="bg-white rounded-lg border border-gray-200 p-6 space-y-4">
@@ -50,7 +52,10 @@ export default function Transcript() {
           {/* VIDEO */}
           <div className="col-span-4 place-self-center">
             <div className="bg-black rounded-lg overflow-hidden shadow-md max-w-4xl mx-auto">
-              <video controls className="w-full aspect-video">
+              <video
+                key={room?.at(activeRecording)?.finalUrl}
+                controls
+                className="w-full aspect-video">
                 <source
                   src={room?.at(activeRecording)?.finalUrl}
                   type="video/mp4"
