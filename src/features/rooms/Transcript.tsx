@@ -38,7 +38,7 @@ export default function Transcript() {
         </div>
 
         {/* MAIN CONTENT */}
-        <div className="grid grid-cols-1 lg:grid-cols-9 gap-6 lg:gap-10 lg:h-[70vh] min-w-0">
+        <div className="grid grid-cols-1 lg:grid-cols-9 gap-6 lg:gap-10 lg:h-[50vh] min-w-0">
           {/* RECORDINGS LIST */}
           <div className="col-span-1 min-w-0 w-full lg:col-span-2 lg:overflow-y-auto scrollbar-none">
             <RecordingList recordings={room} />
