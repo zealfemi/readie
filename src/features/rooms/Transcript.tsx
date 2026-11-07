@@ -16,10 +16,11 @@ export default function Transcript() {
     setActiveRecording(recordingIndex);
   }
 
+  const recordingUrl = room?.at(activeRecording)?.finalUrl;
+
   return (
     <div className="w-full min-w-0">
       <div className="bg-white rounded-lg border border-gray-200 px-4 md:px-5 py-5 space-y-4 w-full min-w-0">
-        {/* DESKTOP HEADINGS */}
         <div className="hidden mb-5 lg:grid lg:grid-cols-9 gap-10">
           <div className="col-span-2">
             <h2 className="text-lg font-semibold text-gray-900">
@@ -39,9 +40,7 @@ export default function Transcript() {
           </div>
         </div>
 
-        {/* MAIN CONTENT */}
         <div className="grid grid-cols-1 lg:grid-cols-9 gap-6 lg:gap-10 lg:h-[50vh] min-w-0">
-          {/* RECORDINGS LIST */}
           <div className="col-span-1 min-w-0 w-full lg:col-span-2 lg:overflow-y-auto scrollbar-none">
             <RecordingList
               recordings={room}
@@ -50,23 +49,31 @@ export default function Transcript() {
             />
           </div>
 
-          {/* VIDEO */}
           <div className="col-span-1 min-w-0 w-full lg:col-span-4">
-            <div className="bg-black rounded-lg overflow-hidden shadow-md w-full max-w-4xl mx-auto">
-              <video
-                key={room?.at(activeRecording)?.finalUrl}
-                controls
-                className="w-full aspect-video">
-                <source
-                  src={room?.at(activeRecording)?.finalUrl}
-                  type="video/mp4"
-                />
-                Your browser does not support HTML video playback.
-              </video>
-            </div>
+            {recordingUrl ? (
+              <div className="bg-black rounded-lg overflow-hidden shadow-md w-full max-w-4xl mx-auto">
+                <video
+                  key={recordingUrl}
+                  controls
+                  className="w-full aspect-video">
+                  <source src={recordingUrl} type="video/mp4" />
+                  Your browser does not support HTML video playback.
+                </video>
+              </div>
+            ) : (
+              <div className="bg-slate-950 text-white/80 rounded-lg shadow-md w-full aspect-video flex items-center justify-center p-6 text-center">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-white/50">
+                    Offline demo
+                  </p>
+                  <p className="mt-2 text-sm">
+                    Video files are not included in the mock data.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* TRANSCRIPT */}
           <div className="col-span-1 min-w-0 w-full lg:col-span-3 lg:overflow-y-auto scrollbar-none">
             <TranscriptText room={room} activeRecording={activeRecording} />
           </div>

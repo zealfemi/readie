@@ -7,7 +7,7 @@ export default function MainLayout() {
       <div className="w-full border-gray-200 border-b">
         <Header />
       </div>
-      <main className="w-full overflow-y-auto p-5 lg:p-10 text-sm md:text-base bg-[whitesmoke] flex-1">
+      <main className="w-full p-5 lg:p-10 text-sm md:text-base bg-[whitesmoke] flex-1">
         <Outlet />
       </main>
     </div>

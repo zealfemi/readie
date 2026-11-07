@@ -1,7 +1,11 @@
 import type { campaignType } from "../types/campaign";
 import type { RoomRecording } from "../types/room";
+import { getMockCampaign, getMockRoomEvaluation } from "../mocks/mockApi";
 
 const API_URL = "/api/auth/recording/jobs";
+const USE_MOCK_API =
+  import.meta.env.VITE_USE_MOCK_API === "true" ||
+  (import.meta.env.DEV && import.meta.env.VITE_USE_MOCK_API !== "false");
 
 const getHeaders = () => ({
   "Content-Type": "application/json",
@@ -10,6 +14,8 @@ const getHeaders = () => ({
 });
 
 export async function getCampaign(campaignId: string): Promise<campaignType[]> {
+  if (USE_MOCK_API) return getMockCampaign(campaignId);
+
   const response = await fetch(`${API_URL}/campaignHACKATHON/${campaignId}`, {
     method: "GET",
     headers: getHeaders(),
@@ -26,6 +32,8 @@ export async function getCampaign(campaignId: string): Promise<campaignType[]> {
 export async function getRoomEvaluation(
   roomName: string,
 ): Promise<RoomRecording[]> {
+  if (USE_MOCK_API) return getMockRoomEvaluation(roomName);
+
   const response = await fetch(`${API_URL}/roomsHACKATHON/${roomName}`, {
     method: "GET",
     headers: getHeaders(),

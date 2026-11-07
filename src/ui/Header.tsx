@@ -6,8 +6,10 @@ export default function Header() {
       <Link to="/">
         <img src="/readie-logo.svg" alt="readie logo" />
       </Link>
-      <div className="flex gap-3 w-full items-center justify-end">
-        <p>Log In</p>|<p>Sign Up</p>
+      <div className="flex w-full items-center justify-end ">
+        <Link to="/jobs" className="hover:underline">
+          Campaigns
+        </Link>
       </div>
     </header>
   );

@@ -73,3 +73,11 @@ export default defineConfig([
 ])
 
 ```
+
+
+## Offline mock API
+
+During `npm run dev`, the app uses local sample responses by default. The fixtures cover campaigns 119, 120, 122, and 123, including completed, in-progress, and failed candidate states, plus a room response with 12 recording entries. Mock mode makes no API or recording requests; video files are intentionally omitted.
+
+To use the live API during development, add `VITE_USE_MOCK_API=false` to `.env.local`. Production builds use the live API unless `VITE_USE_MOCK_API=true` is explicitly set at build time.
+
