@@ -40,8 +40,8 @@ export type IdentityPhase1 = {
   referenceVideoQuality: string;
   interviewVideoQuality: string;
   multiplePeopleDetected: boolean;
-  matchingEvidence: unknown[];
-  conflictingEvidence: unknown[];
+  matchingEvidence: string[];
+  conflictingEvidence: string[];
   limitations: string[];
 };
 

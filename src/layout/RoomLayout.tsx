@@ -32,8 +32,7 @@ export default function RoomLayout() {
             </h1>
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="text-sm font-medium text-gray-600">Status:</span>
+          <div className="">
             <span
               className={`px-3 py-1 rounded-full text-xs font-semibold uppercase ${
                 room?.at(0)?.analytic.disposition === "PASS_WITH_LOW_RISK"
