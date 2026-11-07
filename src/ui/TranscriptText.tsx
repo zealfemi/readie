@@ -49,7 +49,7 @@ export default function TranscriptText({
                   </span>
                 </div>
 
-                <p className="text-sm text-gray-800 leading-relaxed break-words">
+                <p className="text-sm text-gray-800 leading-relaxed break-word">
                   {entry.text}
                 </p>
               </div>
