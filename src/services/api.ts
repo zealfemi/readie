@@ -1,6 +1,6 @@
+import { getMockCampaign, getMockRoomEvaluation } from "../mocks/mockApi";
 import type { campaignType } from "../types/campaign";
 import type { RoomRecording } from "../types/room";
-import { getMockCampaign, getMockRoomEvaluation } from "../mocks/mockApi";
 
 const API_URL = "/api/auth/recording/jobs";
 const USE_MOCK_API =

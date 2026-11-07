@@ -15,9 +15,7 @@ export default function TranscriptText({
     <div className="flex min-w-0 flex-col">
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
-          <h2 className="text-base font-semibold text-slate-900">
-            Transcript
-          </h2>
+          <h2 className="text-base font-semibold text-slate-900">Transcript</h2>
           <p className="mt-1 text-xs text-slate-500">Interview timeline</p>
         </div>
         <span className="shrink-0 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">
@@ -46,8 +44,8 @@ export default function TranscriptText({
                   <span
                     className={`min-w-0 truncate rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-wide ${
                       isCandidate
-                      ? "bg-violet-100 text-violet-800"
-                      : "bg-white text-slate-600"
+                        ? "bg-violet-100 text-violet-800"
+                        : "bg-white text-slate-600"
                     }`}>
                     {entry.speaker}
                   </span>
@@ -55,7 +53,7 @@ export default function TranscriptText({
                     {entry.timestamp}
                   </span>
                 </div>
-                <p className="mt-2 break-words text-sm leading-6 text-slate-700">
+                <p className="mt-2 wrap-break-word text-sm leading-6 text-slate-700">
                   {entry.text}
                 </p>
               </li>

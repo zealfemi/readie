@@ -27,7 +27,8 @@ export default function RoomLayout() {
   const roomRecord = room?.at(0);
   const userEmail = roomRecord?.roomName.split("~~").at(1);
   const campaignId = roomRecord?.campaignId;
-  const candidateId = roomRecord?.analytic.candidateId ?? String(roomRecord?.userId ?? "");
+  const candidateId =
+    roomRecord?.analytic.candidateId ?? String(roomRecord?.userId ?? "");
   const disposition = roomRecord?.analytic.disposition ?? "REVIEW_REQUIRED";
   const isPassed = disposition === "PASS_WITH_LOW_RISK";
   const isFailed = disposition.toUpperCase().includes("FAIL");

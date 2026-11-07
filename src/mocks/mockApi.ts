@@ -1,8 +1,8 @@
 import type { campaignType } from "../types/campaign";
 import type {
   IdentityPhase1,
-  RoomRecording,
   RoomAnalytics,
+  RoomRecording,
 } from "../types/room";
 
 const CAMPAIGN_IDS = [119, 120, 122, 123] as const;
@@ -40,7 +40,9 @@ function makeCandidate(
   candidate: (typeof candidateSeed)[number],
   index: number,
 ): campaignType {
-  const createdAt = new Date(Date.UTC(2026, 10, 3, 17 + index, 20)).toISOString();
+  const createdAt = new Date(
+    Date.UTC(2026, 10, 3, 17 + index, 20),
+  ).toISOString();
   const userId = Number(candidate.id);
   const pctCorrect = candidate.completed ? 82 : candidate.progress ? 50 : 0;
 
@@ -68,12 +70,18 @@ function makeCandidate(
         totalQuestions: 8,
         correctCount: Math.round((pctCorrect / 100) * 8),
         wrongCount: candidate.completed ? 1 : 2,
-        unansweredCount: candidate.completed ? 0 : 8 - Math.round((pctCorrect / 100) * 8) - 2,
+        unansweredCount: candidate.completed
+          ? 0
+          : 8 - Math.round((pctCorrect / 100) * 8) - 2,
         pctCorrect,
         created_date: "2026-11-03",
         created_time: `${String(17 + index).padStart(2, "0")}:20`,
         totalActivityCount: 3,
-        activityCountsByType: JSON.stringify({ answer: 8, review: 2, pause: 1 }),
+        activityCountsByType: JSON.stringify({
+          answer: 8,
+          review: 2,
+          pause: 1,
+        }),
         invigilatorVideoUrlLink: "",
       },
     ],
@@ -148,7 +156,10 @@ function makeTranscript(index: number) {
   ];
 }
 
-function makeRoomAnalytics(candidateId: string, transcriptIndex: number): RoomAnalytics {
+function makeRoomAnalytics(
+  candidateId: string,
+  transcriptIndex: number,
+): RoomAnalytics {
   return {
     candidateId,
     identity_phase1: { ...identityPhase1 },
@@ -232,7 +243,9 @@ function makeRoomRecordings(
   const firstCreatedAt = Date.UTC(2026, 10, 3, 17, 0, 0);
 
   return transcriptSamples.map((_, index) => {
-    const createdAt = new Date(firstCreatedAt + index * 4 * 60_000).toISOString();
+    const createdAt = new Date(
+      firstCreatedAt + index * 4 * 60_000,
+    ).toISOString();
     const userId = Number(candidateId);
 
     return {
@@ -265,13 +278,16 @@ function makeRoomRecordings(
 const mockLatency = (milliseconds = 180) =>
   new Promise<void>((resolve) => setTimeout(resolve, milliseconds));
 
-export async function getMockCampaign(campaignId: string): Promise<campaignType[]> {
+export async function getMockCampaign(
+  campaignId: string,
+): Promise<campaignType[]> {
   await mockLatency();
   return (mockCampaigns[Number(campaignId)] ?? []).map((candidate) => ({
     ...candidate,
-    campaign_assessment_video_link: candidate.campaign_assessment_video_link.map(
-      (assessment) => ({ ...assessment }),
-    ) as campaignType["campaign_assessment_video_link"],
+    campaign_assessment_video_link:
+      candidate.campaign_assessment_video_link.map((assessment) => ({
+        ...assessment,
+      })) as campaignType["campaign_assessment_video_link"],
   }));
 }
 
