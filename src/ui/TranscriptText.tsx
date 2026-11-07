@@ -20,11 +20,9 @@ export default function TranscriptText({
       {entries.length > 0 ? (
         <div className="flex flex-col gap-3 w-full min-w-0 max-h-150 overflow-y-auto overflow-x-hidden scrollbar-none">
           {entries.map((entry, index) => {
-            const isCandidate = [
-              "interviewee",
-              "candidate",
-              "participant",
-            ].includes(entry.speaker.toLowerCase());
+            const isCandidate = ["interviewee", "candidate"].includes(
+              entry.speaker.toLowerCase(),
+            );
 
             return (
               <div
