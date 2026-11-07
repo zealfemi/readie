@@ -1,10 +1,9 @@
-import { useParams } from "react-router-dom";
-import useRoom from "./useRoom";
-import Spinner from "../../ui/Spinner";
-import type { Transcript } from "../../types/room";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import RecordingList from "../../ui/RecordingList";
+import Spinner from "../../ui/Spinner";
 import TranscriptText from "../../ui/TranscriptText";
+import useRoom from "./useRoom";
 
 export default function Transcript() {
   const [activeRecording, setActiveRecording] = useState<number>(0);
@@ -16,8 +15,6 @@ export default function Transcript() {
   function selectRecording(RecordingIndex: number) {
     setActiveRecording(RecordingIndex);
   }
-
-  console.log(room?.at(activeRecording)?.finalUrl);
 
   return (
     <div>

@@ -1,4 +1,10 @@
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import useRoom from "../features/rooms/useRoom";
 import Spinner from "../ui/Spinner";
 
@@ -7,6 +13,8 @@ export default function RoomLayout() {
   const { room, isLoading } = useRoom(roomId ?? "");
   const { pathname } = useLocation();
   const currentLink = pathname.split("/").at(4) ?? "transcript";
+
+  const navigate = useNavigate();
 
   if (isLoading) return <Spinner />;
 
@@ -18,9 +26,11 @@ export default function RoomLayout() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
           <div>
             <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
-              <Link to="/jobs" className="hover:underline">
+              <button
+                onClick={() => navigate(-1)}
+                className="hover:underline hover:cursor-pointer">
                 Campaign
-              </Link>
+              </button>
               <span>/</span>
               <span>Room Evaluation</span>
             </div>
