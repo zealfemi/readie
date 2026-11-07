@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FiClock, FiVideo } from "react-icons/fi";
 import { useParams } from "react-router-dom";
 import RecordingList from "../../ui/RecordingList";
 import Spinner from "../../ui/Spinner";
@@ -16,69 +17,92 @@ export default function Transcript() {
     setActiveRecording(recordingIndex);
   }
 
-  const recordingUrl = room?.at(activeRecording)?.finalUrl;
+  const currentRecording = room?.at(activeRecording);
+  const recordingUrl = currentRecording?.finalUrl;
+  const recordingDate = currentRecording?.createdAt
+    ? new Date(currentRecording.createdAt).toLocaleString(undefined, {
+        dateStyle: "medium",
+        timeStyle: "short",
+      })
+    : "Date unavailable";
 
   return (
-    <div className="w-full min-w-0">
-      <div className="bg-white rounded-lg border border-gray-200 px-4 md:px-5 py-5 space-y-4 w-full min-w-0">
-        <div className="hidden mb-5 lg:grid lg:grid-cols-9 gap-10">
-          <div className="col-span-2">
-            <h2 className="text-lg font-semibold text-gray-900">
-              Recordings ({room?.length})
+    <div className="grid min-w-0 grid-cols-1 items-start gap-4 lg:grid-cols-[200px_minmax(0,1.25fr)_minmax(260px,1fr)] lg:gap-5">
+      <section className="min-w-0 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+        <div className="mb-4">
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="text-base font-semibold text-slate-900">
+              Recordings
             </h2>
-            <p className="text-xs md:text-sm">
-              Select a recording to view its transcript
+            <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">
+              {room?.length ?? 0}
+            </span>
+          </div>
+          <p className="mt-1 text-xs leading-5 text-slate-500">
+            Choose a recording to review.
+          </p>
+        </div>
+        <div className="max-h-[65vh] overflow-y-auto overflow-scroll scrollbar-none pr-1">
+          <RecordingList
+            recordings={room}
+            selectRecording={selectRecording}
+            activeRecording={activeRecording}
+          />
+        </div>
+      </section>
+
+      <section className="min-w-0 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+        <div className="mb-4 flex items-start justify-between gap-3">
+          <div>
+            <h2 className="text-base font-semibold text-slate-900">
+              Video preview
+            </h2>
+            <p className="mt-1 text-xs text-slate-500">
+              Recording {room?.length ? activeRecording + 1 : 0} of{" "}
+              {room?.length ?? 0}
             </p>
           </div>
-
-          <div className="col-span-4"></div>
-
-          <div className="col-span-3">
-            <h2 className="text-lg font-semibold text-gray-900">
-              Transcript Timeline
-            </h2>
-          </div>
+          {currentRecording?.recordingType && (
+            <span className="rounded-full bg-violet-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-primary-500">
+              {currentRecording.recordingType}
+            </span>
+          )}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-9 gap-6 lg:gap-10 lg:h-[50vh] min-w-0">
-          <div className="col-span-1 min-w-0 w-full lg:col-span-2 lg:overflow-y-auto scrollbar-none">
-            <RecordingList
-              recordings={room}
-              selectRecording={selectRecording}
-              activeRecording={activeRecording}
-            />
+        {recordingUrl ? (
+          <div className="overflow-hidden rounded-xl bg-slate-950 shadow-inner">
+            <video
+              key={recordingUrl}
+              controls
+              preload="metadata"
+              className="aspect-video w-full bg-black">
+              <source src={recordingUrl} type="video/mp4" />
+              Your browser does not support HTML video playback.
+            </video>
           </div>
+        ) : (
+          <div className="flex aspect-video w-full flex-col items-center justify-center rounded-xl bg-slate-950 p-6 text-center text-white/80 shadow-inner">
+            <span className="mb-3 grid size-11 place-items-center rounded-full bg-white/10 text-white">
+              <FiVideo className="text-xl" aria-hidden="true" />
+            </span>
+            <p className="text-xs font-semibold uppercase tracking-widest text-white/50">
+              Offline demo
+            </p>
+            <p className="mt-2 max-w-xs text-sm leading-6">
+              Video files are not included in the mock data.
+            </p>
+          </div>
+        )}
 
-          <div className="col-span-1 min-w-0 w-full lg:col-span-4">
-            {recordingUrl ? (
-              <div className="bg-black rounded-lg overflow-hidden shadow-md w-full max-w-4xl mx-auto">
-                <video
-                  key={recordingUrl}
-                  controls
-                  className="w-full aspect-video">
-                  <source src={recordingUrl} type="video/mp4" />
-                  Your browser does not support HTML video playback.
-                </video>
-              </div>
-            ) : (
-              <div className="bg-slate-950 text-white/80 rounded-lg shadow-md w-full aspect-video flex items-center justify-center p-6 text-center">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-white/50">
-                    Offline demo
-                  </p>
-                  <p className="mt-2 text-sm">
-                    Video files are not included in the mock data.
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="col-span-1 min-w-0 w-full lg:col-span-3 lg:overflow-y-auto scrollbar-none">
-            <TranscriptText room={room} activeRecording={activeRecording} />
-          </div>
+        <div className="mt-4 flex items-center gap-2 text-xs text-slate-500">
+          <FiClock className="shrink-0 text-primary-400" aria-hidden="true" />
+          <span>Recorded {recordingDate}</span>
         </div>
-      </div>
+      </section>
+
+      <section className="min-w-0 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+        <TranscriptText room={room} activeRecording={activeRecording} />
+      </section>
     </div>
   );
 }

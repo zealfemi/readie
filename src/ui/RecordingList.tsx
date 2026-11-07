@@ -1,3 +1,4 @@
+import { FiVideo } from "react-icons/fi";
 import type { RoomRecording } from "../types/room";
 
 export default function RecordingList({
@@ -9,31 +10,64 @@ export default function RecordingList({
   selectRecording: (index: number) => void;
   activeRecording: number;
 }) {
-  return (
-    <>
-      <div className="lg:hidden">
-        <h2 className="text-lg font-semibold text-gray-900">
-          Recordings ({recordings?.length})
-        </h2>
-        <p className="text-xs md:text-sm">
-          Select a recording to view its transcript
-        </p>
-      </div>
+  if (!recordings?.length) {
+    return (
+      <p className="rounded-xl bg-slate-50 p-3 text-xs leading-5 text-slate-500">
+        No recordings are available for this room.
+      </p>
+    );
+  }
 
-      <div className="grid grid-cols-2 gap-1 w-full mt-5 lg:flex lg:flex-col lg:gap-1 whitespace-nowrap">
-        {recordings?.map((item: RoomRecording, index) => (
+  return (
+    <div className="space-y-2">
+      {recordings.map((recording, index) => {
+        const isActive = activeRecording === index;
+        const date = new Date(recording.createdAt);
+        const dateLabel = Number.isNaN(date.getTime())
+          ? "Date unavailable"
+          : date.toLocaleString(undefined, {
+              month: "short",
+              day: "numeric",
+              hour: "numeric",
+              minute: "2-digit",
+            });
+
+        return (
           <button
-            key={item.createdAt}
+            key={recording.createdAt}
+            type="button"
+            aria-pressed={isActive}
             onClick={() => selectRecording(index)}
-            className={`px-2 py-1.5 cursor-pointer text-left rounded-sm transition-colors ${
-              activeRecording === index
-                ? "bg-primary-400 text-primary-200"
-                : "hover:bg-primary-300 hover:text-primary-200"
+            className={`flex w-full min-w-0 items-center gap-3 rounded-xl border p-2.5 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 ${
+              isActive
+                ? "border-violet-200 bg-violet-50"
+                : "border-transparent bg-slate-50 hover:border-slate-200 hover:bg-white"
             }`}>
-            Recording {index + 1}
+            <span
+              className={`grid size-9 shrink-0 place-items-center rounded-lg ${
+                isActive
+                  ? "bg-primary-400 text-white"
+                  : "bg-white text-slate-500"
+              }`}>
+              <FiVideo aria-hidden="true" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-xs font-semibold text-slate-800">
+                Recording {index + 1}
+              </span>
+              <span className="mt-0.5 block truncate text-[11px] text-slate-500">
+                {dateLabel}
+              </span>
+            </span>
+            {isActive && (
+              <span
+                className="size-2 shrink-0 rounded-full bg-primary-400"
+                aria-hidden="true"
+              />
+            )}
           </button>
-        ))}
-      </div>
-    </>
+        );
+      })}
+    </div>
   );
 }
