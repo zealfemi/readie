@@ -15,14 +15,15 @@ export default function TranscriptText({
 
       {room?.at(activeRecording)?.analytic.deepfake_phase2.gemini.transcript
         .entries.length !== 0 ? (
-        <div className="space-y-4 max-h-150 overflow-y-auto pr-2">
+        <div className="space-y-4 max-h-150 scrollbar-none w-full overflow-y-auto ">
           {room
             ?.at(activeRecording)
             ?.analytic.deepfake_phase2.gemini.transcript.entries.map(
               (entry, index) => {
                 const isCandidate =
-                  entry.speaker === "INTERVIEWEE" ||
-                  entry.speaker === "Candidate";
+                  entry.speaker.toLowerCase() === "interviewee" ||
+                  entry.speaker.toLowerCase() === "candidate" ||
+                  entry.speaker.toLowerCase() === "participant";
                 return (
                   <div
                     key={index}
@@ -37,7 +38,7 @@ export default function TranscriptText({
                           isCandidate
                             ? "bg-green-200 text-green-900"
                             : "bg-blue-200 text-blue-900"
-                        } capitalize`}>
+                        } uppercase`}>
                         {entry.speaker}
                       </span>
                       <span className="text-xs text-gray-500 font-mono">
