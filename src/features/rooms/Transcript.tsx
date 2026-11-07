@@ -12,13 +12,14 @@ export default function Transcript() {
 
   if (isLoading) return <Spinner />;
 
-  function selectRecording(RecordingIndex: number) {
-    setActiveRecording(RecordingIndex);
+  function selectRecording(recordingIndex: number) {
+    setActiveRecording(recordingIndex);
   }
 
   return (
-    <div>
-      <div className="bg-white rounded-lg border border-gray-200 px-4 md:px-5 py-5 space-y-4">
+    <div className="w-full min-w-0">
+      <div className="bg-white rounded-lg border border-gray-200 px-4 md:px-5 py-5 space-y-4 w-full min-w-0">
+        {/* DESKTOP HEADINGS */}
         <div className="hidden mb-5 lg:grid lg:grid-cols-9 gap-10">
           <div className="col-span-2">
             <h2 className="text-lg font-semibold text-gray-900">
@@ -30,15 +31,18 @@ export default function Transcript() {
           </div>
 
           <div className="col-span-4"></div>
+
           <div className="col-span-3">
             <h2 className="text-lg font-semibold text-gray-900">
               Transcript Timeline
             </h2>
           </div>
         </div>
-        <div className="grid lg:grid-cols-9 gap-10 lg:h-[70vh]">
+
+        {/* MAIN CONTENT */}
+        <div className="grid grid-cols-1 lg:grid-cols-9 gap-6 lg:gap-10 lg:h-[70vh] min-w-0">
           {/* RECORDINGS LIST */}
-          <div className="col-span-2 lg:overflow-scroll scrollbar-none">
+          <div className="col-span-1 min-w-0 w-full lg:col-span-2 lg:overflow-y-auto scrollbar-none">
             <RecordingList
               recordings={room}
               selectRecording={selectRecording}
@@ -47,8 +51,8 @@ export default function Transcript() {
           </div>
 
           {/* VIDEO */}
-          <div className="col-span-4 place-self-center">
-            <div className="bg-black rounded-lg overflow-hidden shadow-md max-w-4xl mx-auto">
+          <div className="col-span-1 min-w-0 w-full lg:col-span-4 lg:place-self-center">
+            <div className="bg-black rounded-lg overflow-hidden shadow-md w-full max-w-4xl mx-auto">
               <video
                 key={room?.at(activeRecording)?.finalUrl}
                 controls
@@ -63,7 +67,7 @@ export default function Transcript() {
           </div>
 
           {/* TRANSCRIPT */}
-          <div className="col-span-3 lg:overflow-scroll scrollbar-none">
+          <div className="col-span-1 min-w-0 w-full lg:col-span-3 lg:overflow-y-auto scrollbar-none">
             <TranscriptText room={room} activeRecording={activeRecording} />
           </div>
         </div>
