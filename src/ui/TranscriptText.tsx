@@ -9,7 +9,7 @@ export default function TranscriptText({
 }) {
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold text-gray-900">
+      <h2 className="lg:hidden text-lg font-semibold text-gray-900">
         Transcript Timeline
       </h2>
 

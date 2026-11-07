@@ -20,7 +20,24 @@ export default function Transcript() {
   return (
     <div>
       <div className="bg-white rounded-lg border border-gray-200 p-6 space-y-4">
-        <div className="grid lg:grid-cols-9 gap-10 lg:h-[50vh]">
+        <div className="hidden mb-5 lg:grid lg:grid-cols-9 gap-10">
+          <div className="col-span-2">
+            <h2 className="text-lg font-semibold text-gray-900">
+              Recordings ({room?.length})
+            </h2>
+            <p className="text-xs md:text-sm">
+              Select a recording to view its transcript
+            </p>
+          </div>
+
+          <div className="col-span-4"></div>
+          <div className="col-span-3">
+            <h2 className="text-lg font-semibold text-gray-900">
+              Transcript Timeline
+            </h2>
+          </div>
+        </div>
+        <div className="grid lg:grid-cols-9 gap-10 lg:h-[70vh]">
           {/* RECORDINGS LIST */}
           <div className="col-span-2 lg:overflow-scroll scrollbar-none">
             <RecordingList
