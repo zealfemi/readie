@@ -16,7 +16,6 @@ import MainLayout from "./layout/MainLayout";
 import RoomLayout from "./layout/RoomLayout";
 import Campaigns from "./pages/Campaigns";
 import NotFound from "./pages/NotFound";
-import RoomContextProvider from "./context/RoomContext";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -53,13 +52,11 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <>
-      <RoomContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} />
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
 
-          <RouterProvider router={router}></RouterProvider>
-        </QueryClientProvider>
-      </RoomContextProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </QueryClientProvider>
     </>
   );
 }

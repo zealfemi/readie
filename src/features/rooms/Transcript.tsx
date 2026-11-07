@@ -1,18 +1,20 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useRoomContext } from "../../context/RoomContext";
 import RecordingList from "../../ui/RecordingList";
 import Spinner from "../../ui/Spinner";
 import TranscriptText from "../../ui/TranscriptText";
 import useRoom from "./useRoom";
 
 export default function Transcript() {
-  const { activeRecording } = useRoomContext();
-  console.log(activeRecording);
-
+  const [activeRecording, setActiveRecording] = useState<number>(0);
   const { roomId } = useParams();
   const { room, isLoading } = useRoom(roomId ?? "");
 
   if (isLoading) return <Spinner />;
+
+  function selectRecording(recordingIndex: number) {
+    setActiveRecording(recordingIndex);
+  }
 
   return (
     <div className="w-full min-w-0">
@@ -41,7 +43,11 @@ export default function Transcript() {
         <div className="grid grid-cols-1 lg:grid-cols-9 gap-6 lg:gap-10 lg:h-[50vh] min-w-0">
           {/* RECORDINGS LIST */}
           <div className="col-span-1 min-w-0 w-full lg:col-span-2 lg:overflow-y-auto scrollbar-none">
-            <RecordingList recordings={room} />
+            <RecordingList
+              recordings={room}
+              selectRecording={selectRecording}
+              activeRecording={activeRecording}
+            />
           </div>
 
           {/* VIDEO */}

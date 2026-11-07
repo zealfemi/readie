@@ -1,25 +1,22 @@
 import { useParams } from "react-router-dom";
-import { useRoomContext } from "../../context/RoomContext";
-import useRoom from "./useRoom";
-import Spinner from "../../ui/Spinner";
 import type { IdentityPhase1 } from "../../types/room";
+import Spinner from "../../ui/Spinner";
+import useRoom from "./useRoom";
 
 export default function IdentityVerification() {
   const { roomId } = useParams();
   const { room, isLoading } = useRoom(roomId ?? "");
 
-  const { activeRecording } = useRoomContext();
-
   if (isLoading) return <Spinner />;
 
   const recording: IdentityPhase1 | null | undefined =
-    room?.at(activeRecording)?.analytic.identity_phase1;
+    room?.at(0)?.analytic.identity_phase1;
 
   return (
     <div>
       <div className="bg-white rounded-lg border border-gray-200 p-6 space-y-6">
         <h2 className="text-lg font-semibold text-gray-900">
-          Identity Verification Summary
+          Identity Verification - Phase 1
         </h2>
 
         {recording ? (
